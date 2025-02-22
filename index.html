@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Full Course</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .course-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 80%;
+            max-width: 500px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .course-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .course-item:last-child {
+            border-bottom: none;
+        }
+        .course-item:hover {
+            background-color: #f9f9f9;
+        }
+        .course-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #444;
+        }
+        .course-info {
+            font-size: 1em;
+            color: gray;
+        }
+        .course-link {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 1em;
+            color: blue;
+            text-decoration: none;
+        }
+        .course-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="course-container">
+        <div class="header">
+            <h1>Python Full Course</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search for a course...">
+        </div>
+        <div id="course-list"></div>
+        <script>
+            const courses = [
+            { title: "Day 1 - Beginner - Working with Variables in Python to Manage Data", lectures: 12, duration: "1hr 12min", link: "https://drive.google.com/drive/folders/1UJy0ZG9o4VtoiaFso1_eM081CwGCPG7N?usp=share_link" },
+            { title: "Day 2 - Beginner - Understanding Data Types and How to Manipulate Strings", lectures: 7, duration: "58min", link: "https://drive.google.com/drive/folders/1OeLhxf3H0uUGGbfofrADEs8E_3xr7p1x?usp=share_link" },
+            { title: "Day 3 - Beginner - Control Flow and Logical Operators", lectures: 10, duration: "1hr 15min", link: "https://drive.google.com/drive/folders/1foumXkT3Uw3j95pOioMY2PrBTyx4czHf?usp=share_link" },
+            { title: "Day 4 - Beginner - Randomisation and Python Lists", lectures: 7, duration: "1hr 4min", link: "https://drive.google.com/drive/folders/1qyONjm47iVRaphddUkiuwQs_Ws0RT4fr?usp=share_link" },
+            { title: "Day 5 - Beginner - Python Loops", lectures: 6, duration: "41min", link: "https://drive.google.com/drive/folders/1_11SUdaZfATAxqxuLeLAE5KxjoLb9cN4?usp=share_link" },
+            { title: "Day 6 - Beginner - Python Functions & Karel", lectures: 9, duration: "1hr 23min", link: "https://drive.google.com/drive/folders/1yy-cG745H9nGWU3gg5OpJo5Fa0CLfViI?usp=share_link" },
+            { title: "Day 7 - Beginner - Hangman", lectures: 8, duration: "58min", link: "https://drive.google.com/drive/folders/1AbrmM59vjwNl_K7RCJbJGW9_eBKkwtzG?usp=share_link" },
+            { title: "Day 8 - Beginner - Function Parameters & Caesar Cipher", lectures: 7, duration: "1hr 5min", link: "https://drive.google.com/drive/folders/1ldRYNyR0i63Yax1B3_VNrQ0qJfbgGlR6?usp=share_link" },
+            { title: "Day 9 - Beginner - Dictionaries, Nesting and the Secret Auction", lectures: 5, duration: "50min", link: "https://drive.google.com/drive/folders/1XIlRRyi3EO84fEuDX5-8Wqr0IgMfWhXz?usp=share_link" },
+            { title: "Day 10 - Beginner - Functions with Outputs", lectures: 6, duration: "55min", link: "https://drive.google.com/drive/folders/1fJpQfQY5dtMe3sNhYHkNbweqTHFPZmTU?usp=share_link" },
+            { title: "Day 11 - Beginner - The Blackjack Capstone Project", lectures: 8, duration: "47min", link: "https://drive.google.com/drive/folders/1eNASlbxC7N05yrpFf35Qh8niBSnUm2Lz?usp=sharing" },
+            { title: "Day 12 - Beginner - Scope & Number Guessing Game", lectures: 8, duration: "49min", link: "https://drive.google.com/drive/folders/1PaTdUVDrLx_UwVJstxRH66VKFXEVETgV?usp=share_link" },
+            { title: "Day 13 - Beginner - Debugging: How to Find and Fix Errors in your Code", lectures: 8, duration: "43min", link: "https://drive.google.com/drive/folders/1ZMM-ZByNGol5iK5HRcX-C2KgCsRPS1Cn?usp=share_link" },
+            { title: "Day 14 - Beginner - Higher Lower Game Project", lectures: 3, duration: "37min", link: "https://drive.google.com/drive/folders/1JrCNmRJvWnWQMEkH8MSmRVQHokstozRs?usp=share_link" },
+            { title: "Day 15 - Intermediate - Local Development Environment Setup & the Coffee Machine", lectures: 3, duration: "39min", link: "https://drive.google.com/drive/folders/1X4IpzlABH4WlvjfxsEU_34Q1tEwwIUyF?usp=share_link" },
+            { title: "Day 16 - Intermediate - Object Oriented Programming (OOP)", lectures: 8, duration: "1hr 5min", link: "https://drive.google.com/drive/folders/1MXAqEQEvplk0d0nE8ZVQke6lLc4nJPhQ?usp=share_link" },
+            { title: "Day 17 - Intermediate - The Quiz Project & the Benefits of OOP", lectures: 10, duration: "1hr 22min", link: "https://drive.google.com/drive/folders/1qoUi5sViD4oCyCWntkK1V6pdt-mJ1QA4?usp=share_link" },
+            { title: "Day 18 - Intermediate - Turtle & the Graphical User Interface (GUI)", lectures: 12, duration: "1hr 28min", link: "https://drive.google.com/drive/folders/1bOs0H5Xpa8P2gTKYfcWR3VUrwW7bRX5h?usp=share_link" },
+            { title: "Day 19 - Intermediate - Instances, State and Higher Order Functions", lectures: 7, duration: "45min", link: "https://drive.google.com/drive/folders/1DNLPDRMl8lV78pf8FdFEN7GOKDr2O5sY?usp=share_link" },
+            { title: "Day 20 - Intermediate - Build the Snake Game Part 1: Animation & Coordinates", lectures: 6, duration: "51min", link: "https://drive.google.com/drive/folders/1oo_8NOwDtEPQwvQOgQCLzf6HnbpohbhH?usp=share_link" },
+            { title: "Day 21 - Intermediate - Build the Snake Game Part 2: Inheritance & List Slicing", lectures: 8, duration: "50min", link: "https://drive.google.com/drive/folders/1dJbkhnXFC9bJlBX7-8ajGewfLDTfu9Zs?usp=share_link" },
+            { title: "Day 22 - Intermediate - Build Pong: The Famous Arcade Game", lectures: 10, duration: "53min", link: "https://drive.google.com/drive/folders/1MN4DC_FnLKcU3klElaUG0rUgQSJkZp_9?usp=share_link" },
+            { title: "Day 23 - Intermediate - The Turtle Crossing Capstone Project", lectures: 11, duration: "38min", link: "https://drive.google.com/drive/folders/1lfOGoAM3mzo4iRyw6L2GGmpGv7JGvOyf?usp=share_link" },
+            { title: "Day 24 - Intermediate - Files, Directories and Paths", lectures: 8, duration: "1hr 3min", link: "https://drive.google.com/drive/folders/1-ybFgyHMEN9j53CcNUD5RZ1hhZDufntV?usp=share_link" },
+            { title: "Day 25 - Intermediate - Working with CSV Data and the Pandas Library", lectures: 7, duration: "1hr 15min", link: "https://drive.google.com/drive/folders/1wZ2EA0fLm1mlpcU9AbTukg95bx38s2ba?usp=share_link" },
+            { title: "Day 26 - Intermediate - List Comprehension and the NATO Alphabet", lectures: 7, duration: "45min", link: "https://drive.google.com/drive/folders/1U8DX537v8MnI3-0g4TUK9ty4qDWhYcx5?usp=share_link" },
+            { title: "Day 27 - Intermediate - Tkinter, *args, **kwargs and Creating GUI Programs", lectures: 10, duration: "1hr 18min", link: "https://drive.google.com/drive/folders/1KqzxzTcoRFqwdOex-q1ZddBhpBWl0E4g?usp=share_link" },
+            { title: "Day 28 - Intermediate - Tkinter, Dynamic Typing and the Pomodoro GUI Application", lectures: 7, duration: "1hr 9min", link: "https://drive.google.com/drive/folders/1oG0ru-EBKARClPZiMslwm2S1DnYEMKZC?usp=share_link" },
+            { title: "Day 29 - Intermediate - Building a Password Manager GUI App with Tkinter", lectures: 7, duration: "55min", link: "https://drive.google.com/drive/folders/14dKUCD_wMzE2y8H0Cwnk2knuI0lTDhbD?usp=share_link" },
+            { title: "Day 30 - Intermediate - Errors, Exceptions and JSON Data: Improving the Password", lectures: 7, duration: "1hr 6min", link: "https://drive.google.com/drive/folders/1Ld7A0kCCOxtPkYYz_bFJBVHdUuydER0x?usp=share_link" },
+            { title: "Day 31 - Intermediate - Flash Card App Capstone Project", lectures: 9, duration: "51min", link: "https://drive.google.com/drive/folders/1842tXUkV0oJEHjTepwLXpxAucxOKTlo0?usp=share_link" },
+            { title: "Day 32 - Intermediate+ Send Email (smtplib) & Manage Dates (datetime)", lectures: 8, duration: "1hr 3min", link: "https://drive.google.com/drive/folders/1vgk0mqZlWO2Aw3pcESMZa8lSjOKaDXlx?usp=share_link" },
+            { title: "Day 33 - Intermediate+ API Endpoints & API Parameters - ISS Overhead Notifier", lectures: 7, duration: "50min", link: "https://drive.google.com/drive/folders/1YjGS8Ue-3WuxH89_Wxhf3OvnTPTZ-NoA?usp=share_link" },
+            { title: "Day 34 - Intermediate+ API Practice - Creating a GUI Quiz App", lectures: 12, duration: "1hr 28min", link: "https://drive.google.com/drive/folders/17J_39DciaLTdWML-9Gk1SxHkvDaJ5U4-?usp=share_link" },
+            { title: "Day 35 - Intermediate+ Keys, Authentication & Environment Variables: Send SMS", lectures: 8, duration: "1hr 4min", link: "https://drive.google.com/drive/folders/1VBKiKuIf-zWqEt603NbLEMsKPb9uxORw?usp=share_link" },
+            { title: "Day 36 - Intermediate+ Stock Trading News Alert Project", lectures: 5, duration: "40min", link: "https://drive.google.com/drive/folders/1K82TqAYZ4zMmQg7tVPf4LxnJu42T8OsG?usp=share_link" },
+            { title: "Day 37 - Intermediate+ Habit Tracking Project: API Post Requests & Headers", lectures: 6, duration: "39min", link: "https://drive.google.com/drive/folders/1udtCEhM-v3KBjdEmIkM9IEQI_YMv9Bft?usp=share_link" },
+            { title: "Day 38 - Intermediate+ Workout Tracking Using Google Sheets", lectures: 7, duration: "8min", link: "https://drive.google.com/drive/folders/1eDUX5xzl-Fto8HjA4HEdSeeqNyvCCAvH?usp=share_link" },
+            { title: "Day 39 - Intermediate+ Capstone Part 1: Flight Deal Finder", lectures: 6, duration: "13min", link: "https://drive.google.com/drive/folders/1HVHdF8G3F8UeYGbSd-il4wRuL346XDjw?usp=share_link" },
+            { title: "Day 40 - Intermediate+ Capstone Part 2: Flight Club", lectures: 6, duration: "7min", link: "https://drive.google.com/drive/folders/1Z1c45u4hHIVNK3w1Lz6pnU8Uvuzrr4HQ?usp=share_link" },
+            { title: "Day 41 - Web Foundation - Introduction to HTML", lectures: 8, duration: "58min", link: "https://drive.google.com/drive/folders/1lWtAjwnwsmkKIb8i1TTLjCDHOCg9SrVb?usp=share_link" },
+            { title: "Day 42 - Web Foundation - Intermediate HTML", lectures: 6, duration: "1hr 1min", link: "https://drive.google.com/drive/folders/19i7eo6PwQfklVbB3c1JFHPPf2DGSG4xK?usp=share_link" },
+            { title: "Day 43 - Web Foundation - Introduction to CSS", lectures: 4, duration: "56min", link: "https://drive.google.com/drive/folders/1ctdGVFIh0wKXzMAiGlEsYRMWwM5WVLGj?usp=share_link" },
+            { title: "Day 44 - Web Foundation - Intermediate CSS", lectures: 5, duration: "1hr 9min", link: "https://drive.google.com/drive/folders/1XdegkKMdaPiZ9SIrujIR65dIxLjKOshQ?usp=share_link" },
+            { title: "Day 45 - Intermediate+ Web Scraping with Beautiful Soup", lectures: 6, duration: "1hr 4min", link: "https://drive.google.com/drive/folders/1AEHXXkzzPHZfNutA0hfmR4dgZXcaU9ny?usp=share_link" },
+            { title: "Day 46 - Intermediate+ Create a Spotify Playlist using the Musical Time Machine", lectures: 5, duration: "7min", link: "https://drive.google.com/drive/folders/1pU7wOJFspNzkoJ5Tu5e4Iapcj7sY-QJr?usp=share_link" },
+            { title: "Day 47 - Intermediate+ Create an Automated Amazon Price Tracker", lectures: 5, duration: "10min", link: "https://drive.google.com/drive/folders/1hbzpNXIvLsn6Wzh-OecoNYUeqANvPs3W?usp=share_link" },
+            { title: "Day 48 - Intermediate+ Selenium Webdriver Browser and Game Playing Bot", lectures: 8, duration: "54min", link: "https://drive.google.com/drive/folders/1HdQFUPwFWiZ3S5dtUZBn7XQfBdHEVtCw?usp=share_link" },
+            { title: "Day 49 - Intermediate+ Automating Job Applications on LinkedIn", lectures: 5, duration: "6min", link: "https://drive.google.com/drive/folders/1E0quyIBfPByd9LRRnaTXeWOaeWTe6Y2i?usp=share_link" },
+            { title: "Day 50 - Intermediate+ Auto Tinder Swiping Bot", lectures: 6, duration: "10min", link: "https://drive.google.com/drive/folders/1cNn_kN6O-gtDrRk7Zh3Z6w95Or_QArV6?usp=share_link" },
+
+            { title: "Day 51 - Intermediate+ Internet Speed Twitter Complaint Bot", lectures: 9, duration: "55min", link: "https://drive.google.com/drive/folders/13yagaPUUtmyBROjNBZ638gju2dVnfNv5?usp=share_link" },
+            { title: "Day 52 - Intermediate+ Instagram Follower Bot", lectures: 6, duration: "7 min", link: "https://drive.google.com/drive/folders/1icgSN7BLMO7aJd7ezje_jqjTrK6KhRmy?usp=share_link" },
+  { title: "Day 53 - Intermediate+ Web Scraping Capstone - Data Entry Job Automation", lectures: 3, duration: "10 min", link: "https://drive.google.com/drive/folders/107ADV-KcAsuZgFQIgwRlYUXixYoXVMcI?usp=share_link" },
+  { title: "Day 54 - Intermediate+ Introduction to Web Development with Flask", lectures: 6, duration: "57 min", link: "https://drive.google.com/drive/folders/1Xfw89SPJud0zqjBNozA6hL_DaeMVvKQT?usp=share_link" },
+  { title: "Day 55 - Intermediate+ HTML & URL Parsing in Flask and the Higher Lower Game", lectures: 6, duration: "33 min", link: "https://drive.google.com/drive/folders/1B8f6JWlYKj8b1GsaJgCKnRk44ErDx2Ik?usp=share_link" },
+  { title: "Day 56 - Intermediate+ Rendering HTML/Static files and Using Website Templates", lectures: 6, duration: "40 min", link: "https://drive.google.com/drive/folders/1P4uc25QO3_pKyIb763R33gKcMleYsk4p?usp=share_link" },
+  { title: "Day 57 - Intermediate+ Templating with Jinja in Flask Applications", lectures: 6, duration: "38 min", link: "https://drive.google.com/drive/folders/1W4mqFb9UNdEWfoHRIGnDXYpo9QT6daMG?usp=share_link" },
+  { title: "Day 58 - Web Foundation Bootstrap", lectures: 5, duration: "1hr 40min", link: "https://drive.google.com/drive/folders/16hGAIPIFyh7UUzdrNhe1IssZ5xLxIaCy?usp=share_link" },
+  { title: "Day 59 - Advanced - Blog Capstone Project Part 2 - Adding Styling", lectures: 8, duration: "4 min", link: "https://drive.google.com/drive/folders/18gPQpUqCN8w0zr0lVXdjVJ1YEybh_FBK?usp=share_link" },
+  { title: "Day 60 - Advanced - Make POST Requests with Flask and HTML Forms", lectures: 6, duration: "4 min", link: "https://drive.google.com/drive/folders/1NkhAVqVShj0FRrHcztqoAZ8FvD_P-C-D?usp=share_link" },
+
+  { title: "Day 61 - Advanced - Building Advanced Forms with Flask-WTForms", lectures: 9, duration: "11 min", link: "https://drive.google.com/drive/folders/1c8NArX48zRh8UV5HgRY8Ss6R1KuEAnRW?usp=share_link" },
+  { title: "Day 62 - Advanced - Flask, WTForms, Bootstrap and CSV - Coffee & Wifi Project", lectures: 3, duration: "3 min", link: "https://drive.google.com/drive/folders/1ijqNyNkIG_kF2wD8tf-RaI0Fsfdbe7oY?usp=share_link" },
+  { title: "Day 63 - Advanced - Databases and with SQLite and SQLAlchemy", lectures: 8, duration: "12 min", link: "https://drive.google.com/drive/folders/1VBo-t6HmG_jXbc93dX0z_VLzQaYQv5Ix?usp=share_link" },
+  { title: "Day 64 - Advanced - My Top 10 Movies Website", lectures: 7, duration: "7 min", link: "https://drive.google.com/drive/folders/12Xicb4vGKrDmOX0MowwYZgW3g7MVusIu?usp=share_link" },
+  { title: "Day 65 - Web Design School - How to Create a Website that People will Love", lectures: 6, duration: "1hr 6min", link: "https://drive.google.com/drive/folders/17tLaD6JWJvU0m1NrezDchMBYxH-hbB0-?usp=share_link" },
+  { title: "Day 66 - Advanced - Building Your Own API with RESTful Routing", lectures: 12, duration: "23 min", link: "https://drive.google.com/drive/folders/1iMNtOJ9m6_OSYG1IyFji0ZSR7a_pNJHX?usp=share_link" },
+  { title: "Day 67 - Advanced - Blog Capstone Project Part 3 - RESTful Routing", lectures: 0, duration: "", link: "https://drive.google.com/drive/folders/1BcFZKjJShTNzEpaWqVkJMkqfWDk61nFp?usp=share_link" },
+  { title: "Day 67 - Advanced - Blog Capstone Project Part 3 - RESTful Routing", lectures: 7, duration: "10 min", link: "https://drive.google.com/drive/folders/1CJ_8flGyBuyqmmepZ467kkrxSo7k6VqH?usp=share_link" },
+  { title: "Day 68 - Advanced - Authentication with Flask", lectures: 12, duration: "45 min", link: "https://drive.google.com/drive/folders/1CJ_8flGyBuyqmmepZ467kkrxSo7k6VqH?usp=share_link " },
+  { title: "Day 69 - Advanced - Blog Capstone Project Part 4 - Adding Users", lectures: 7, duration: "10 min", link: "https://drive.google.com/drive/folders/1iRB3JfCw0KfI1mRLHlzS8pBWF8xwjl1v?usp=share_link" },
+  { title: "Day 70 - Advanced - Git, Github and Version Control", lectures: 10, duration: "1hr 16min", link: "https://drive.google.com/drive/folders/1uiVTv1dMEHnaD0E7b1-fQKKIN8JfPwhC?usp=share_link" },
+
+  { title: "Day 71 - Advanced - Deploying Your Web Application", lectures: 8, duration: "10 min", link: "https://drive.google.com/drive/folders/1x8EYnuFSWWv68X-Smbu4aEwuffRb8lqe?usp=share_link" },
+  { title: "Day 72 - Advanced - Data Exploration with Pandas: College Major v.s. Your Salary", lectures: 10, duration: "8 min", link: "https://drive.google.com/drive/folders/1zPNhupfJmGZ6bSI1ddHJaVxyKHgzWRv1?usp=share_link" },
+  { title: "Day 73 - Advanced - Data Visualisation with Matplotlib: Programming Languages", lectures: 10, duration: "9 min", link: "https://drive.google.com/drive/folders/1-gxISwbU5deUbpbNZGRJ_SCjFld8Bjkc?usp=share_link" },
+  { title: "Day 74 - Advanced - Aggregate & Merge Data with Pandas: Analyse the LEGO Dataset", lectures: 11, duration: "14 min", link: "https://drive.google.com/drive/folders/1F7OjVygtqIKft5VcDECQJrv3JIPPMIjC?usp=share_link" },
+  { title: "Day 75 - Advanced - Google Trends Data: Resampling and Visualising Time Series", lectures: 9, duration: "14 min", link: "https://drive.google.com/drive/folders/14ExwOkt64xAWdSgw6UevsnDBDjIOTRYO?usp=share_link" },
+  { title: "Day 76 - Advanced - Beautiful Plotly Charts & Analysing the Android App Store", lectures: 9, duration: "16 min", link: "https://drive.google.com/drive/folders/1YcMw2tTvvDq9MxAiKoqqVLOmir2VMaL9?usp=share_link" },
+  { title: "Day 77 - Advanced - Computation with NumPy and N-Dimensional Arrays", lectures: 6, duration: "12 min", link: "https://drive.google.com/drive/folders/1uraiZnr21BsVsF88n-FfIWmuQuMJRb0z?usp=share_link" },
+  { title: "Day 78 - Advanced - Linear Regression and Data Visualisation with Seaborn", lectures: 9, duration: "17 min", link: "https://drive.google.com/drive/folders/1H7-COkS-xjpLw4v7VEnbY2NM8wIyWmCs?usp=share_link" },
+  { title: "Day 79 - Advanced - Analysing the Nobel Prize with Plotly, Matplotlib & Seaborn", lectures: 8, duration: "22 min", link: "https://drive.google.com/drive/folders/1ZMthyA1qHdYhM0qExJREruMZ3z2ww7rm?usp=share_link" },
+  { title: "Day 80 - Advanced - The Tragic Discovery of Handwashing: t-Tests & Distributions", lectures: 6, duration: "16 min", link: "https://drive.google.com/drive/folders/1jGVDSxYJKS49xYVvq8XR8RToyneisFpo?usp=share_link" },
+  { title: "Day 81 - Advanced - Capstone Project - Predict House Prices", lectures: 2, duration: "1 min", link: "https://drive.google.com/drive/folders/1OIC5DB7SHJ1CIQmRrjQHURQUKlqQ_suj?usp=share_link" }
+  ];
+            
+            
+            
+            const courseList = document.getElementById('course-list');
+            const searchInput = document.getElementById('search');
+
+            function renderCourses(filteredCourses) {
+                courseList.innerHTML = '';
+                filteredCourses.forEach(course => {
+                    const courseItem = document.createElement('div');
+                    courseItem.classList.add('course-item');
+                    courseItem.innerHTML = `
+                        <div class="course-title">${course.title}</div>
+                        <div class="course-info">${course.lectures} lectures • ${course.duration}</div>
+                        <a href="${course.link}" class="course-link">View Course</a>
+                    `;
+                    courseList.appendChild(courseItem);
+                });
+            }
+
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredCourses = courses.filter(course => course.title.toLowerCase().includes(searchTerm));
+                renderCourses(filteredCourses);
+            });
+
+            renderCourses(courses);
+        </script>
+    </div>
+</body>
+</html>
